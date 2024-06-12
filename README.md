@@ -1,4 +1,4 @@
-# myapp
+# Foodie Network
 
 A new Flutter project.
 
