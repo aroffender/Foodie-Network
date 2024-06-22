@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTimer()
   {
-    Timer(const Duration(seconds: 8),() async{
+    Timer(const Duration(seconds: 5),() async{
       Navigator.push(context, MaterialPageRoute(builder: (c)=> const Auth()));
     });
   }
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
-                    "Find Restuants Near You",
+                    "Find Restaurants Near You",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black45,

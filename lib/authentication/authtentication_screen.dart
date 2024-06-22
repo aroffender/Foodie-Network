@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
 class Auth extends StatefulWidget {
-  const Auth({super.key});
+  const Auth({Key? key}) : super(key: key);
 
   @override
-  State<Auth> createState() => _AuthState();
+  _AuthState createState() => _AuthState();
 }
 
-class AuthState extends State<Auth> {
+class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -18,7 +19,7 @@ class AuthState extends State<Auth> {
               gradient: LinearGradient(
                 colors: [
                   Colors.cyan,
-                  Colors.amber,
+                  Colors.blueGrey,
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
@@ -28,9 +29,9 @@ class AuthState extends State<Auth> {
             ),
           ),
           title: const Text(
-            'Auth',
+            'Foodie Network',
             style: TextStyle(
-              fontSize: 60,
+              fontSize: 36,
               color: Colors.white,
               fontFamily: "Lobster",
             ),
@@ -54,11 +55,11 @@ class AuthState extends State<Auth> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               colors: [
-                Colors.amber,
                 Colors.cyan,
+                Colors.white,
               ],
             ),
           ),
