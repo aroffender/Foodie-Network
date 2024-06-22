@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-class AuthtenticationScreen extends StatefulWidget {
-  const AuthtenticationScreen({super.key});
+class Auth extends StatefulWidget {
+  const Auth({super.key});
 
   @override
-  State<AuthtenticationScreen> createState() => _AuthtenticationScreenState();
+  State<Auth> createState() => _AuthState();
 }
 
-class _AuthtenticationScreenState extends State<AuthtenticationScreen> {
+class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
