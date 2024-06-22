@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/splashScreen/splash_screen.dart';
 
 Future<void> main() async
 {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: ThemeMode.system,
-      home: Scaffold(),
+      home: const SplashScreen(),
     );
   }
 }
