@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Auth extends StatefulWidget {
-  const Auth({Key? key}) : super(key: key);
+  const Auth({super.key});
 
   @override
   AuthState createState() => AuthState();
@@ -15,14 +15,14 @@ class AuthState extends State<Auth> {
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Colors.cyan,
                   Colors.amber,
                  ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
@@ -53,7 +53,7 @@ class AuthState extends State<Auth> {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
@@ -76,7 +76,7 @@ class AuthState extends State<Auth> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Auth(),
   ));
 }

@@ -3,17 +3,19 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: FirstRoute(),
   ));
 }
 
 class FirstRoute extends StatelessWidget {
+  const FirstRoute({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Route'),
+        title: const Text('First Route'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -21,10 +23,10 @@ class FirstRoute extends StatelessWidget {
             // Navigate to the second route when tapped.
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SecondRoute()),
+              MaterialPageRoute(builder: (context) => const SecondRoute()),
             );
           },
-          child: Text('Open route'),
+          child: const Text('Open route'),
         ),
       ),
     );
@@ -32,11 +34,13 @@ class FirstRoute extends StatelessWidget {
 }
 
 class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Second Route'),
+        title: const Text('Second Route'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -44,7 +48,7 @@ class SecondRoute extends StatelessWidget {
             // Navigate back to the first route when tapped.
             Navigator.pop(context);
           },
-          child: Text('Go back!'),
+          child: const Text('Go back!'),
         ),
       ),
     );

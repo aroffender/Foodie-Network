@@ -7,8 +7,29 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  TextEditingController anyController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SingleChildScrollView(
+      child: Container(
+       child: Column(
+         mainAxisSize: MainAxisSize.max,
+         children: [
+           InkWell(
+             child: CircleAvatar(
+                radius: MediaQuery.of(context).size.width*0.20,
+               backgroundColor: Colors.white,
+               backgroundImage: ,
+
+             )
+           )
+         ],
+         )
+       ),
+      ),
+    )
   }
 }
