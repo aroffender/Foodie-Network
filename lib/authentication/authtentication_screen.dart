@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/authentication/login.dart';
+import 'package:myapp/authentication/register.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -65,8 +67,8 @@ class _AuthState extends State<Auth> {
           ),
           child: const TabBarView(
             children: [
-              Center(child: Text('Login Screen')),
-              Center(child: Text('Register Screen')),
+              LoginPage(),
+              SignupPage(),
             ],
           ),
         ),

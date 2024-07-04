@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-class Logininfo extends StatefulWidget {
-  const Logininfo({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Logininfo> createState() => _LogininfoState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LogininfoState extends State<Logininfo> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
