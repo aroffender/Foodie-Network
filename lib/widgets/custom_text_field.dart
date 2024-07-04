@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyAppText extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final IconData? data;
   final String? hintText;
   bool isObscure;
   bool enabled;
 
-  MyAppText({super.key, 
+  CustomTextField({super.key,
     this.controller,
     this.data,
     this.hintText,
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
           title: const Text('My App'),
         ),
         body: Center(
-          child: MyAppText(
+          child: CustomTextField(
             hintText: 'Enter text',
             data: Icons.text_fields,
           ),
