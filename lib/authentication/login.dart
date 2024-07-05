@@ -38,14 +38,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 CustomTextField(
-                  data: Icons.person ,
+                  data: Icons.email ,
                   controller: emailController,
                   hintText: "Email",
                   isObscure: false,
 
                 ),
                 CustomTextField(
-                  data: Icons.person ,
+                  data: Icons.key ,
                   controller: passwordController,
                   hintText: "Password",
                   isObscure: false,
