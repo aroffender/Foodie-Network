@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 
@@ -26,6 +28,8 @@ class _SignupPageState extends State<SignupPage> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
+  Position? position;
+  List<Placemark>? placeMarks;
 
   Future<void> _getImage() async{
     imageXFile== await _picker.pickImage(source: ImageSource.gallery);
@@ -34,6 +38,21 @@ class _SignupPageState extends State<SignupPage> {
     });
   }
 
+  getCurrentLocation() async
+  {
+    Position newPosition = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    position = newPosition;
+    placeMarks = await placemarkFromCoordinates(
+        position!.latitude,
+        position!.longitude);
+    Placemark pMark = placeMarks![0];   // till here we only get position in lon,lat.
+
+    String completeAddress = "${pMark.subThoroughfare}  ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality},  ${pMark.subAdministrativeArea},  ${pMark.administrativeArea}  ${pMark.postalCode}, ${pMark.country} ";
+
+    locationController.text = completeAddress;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +80,7 @@ class _SignupPageState extends State<SignupPage> {
              )
            ),
            const SizedBox( height: 10,),
-           Form(
+           Form(                            // contains the find location button
              key: _formKey ,
              child: Column(
                children: [
@@ -121,7 +140,10 @@ class _SignupPageState extends State<SignupPage> {
                        Icons.location_on,
                        color: Colors.white
                      ),
-                     onPressed: ()=> print("Clicked"),
+                     onPressed: ()
+                     {
+                       getCurrentLocation();
+                     },
                      style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
                        shape:  RoundedRectangleBorder(
@@ -151,7 +173,7 @@ class _SignupPageState extends State<SignupPage> {
                 fontWeight: FontWeight.bold
                  ),
                ),
-           )
+           ) // contains signup button
 
          ],
          )
