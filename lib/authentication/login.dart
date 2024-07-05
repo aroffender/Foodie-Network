@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   data: Icons.key ,
                   controller: passwordController,
                   hintText: "Password",
-                  isObscure: false,
+                  isObscure: true,
 
                 ),
 

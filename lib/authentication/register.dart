@@ -91,35 +91,35 @@ class _SignupPageState extends State<SignupPage> {
                    isObscure: false,
                  ),
                  CustomTextField(
-                   data: Icons.person ,
+                   data: Icons.email ,
                    controller: emailController,
                    hintText: "Email",
                    isObscure: false,
 
                  ),
                  CustomTextField(
-                   data: Icons.person ,
+                   data: Icons.key ,
                    controller: passwordController,
                    hintText: "Password",
                    isObscure: false,
 
                  ),
                  CustomTextField(
-                   data: Icons.person ,
+                   data: Icons.key ,
                    controller: confirmPasswordController,
                    hintText: "Confirm Password",
                    isObscure: false,
 
                  ),
                  CustomTextField(
-                   data: Icons.person ,
+                   data: Icons.phone ,
                    controller: phoneController,
                    hintText: "Phone",
                    isObscure: false,
 
                  ),
                  CustomTextField(
-                   data: Icons.person ,
+                   data: Icons.location_on ,
                    controller: locationController,
                    hintText: "Address",
                    isObscure: false,
