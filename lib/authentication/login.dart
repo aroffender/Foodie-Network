@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../widgets/custom_text_field.dart';
 class LoginPage extends StatefulWidget {
@@ -27,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             alignment: Alignment.bottomCenter,
             child: Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Image.asset(
                     "images/seller.png",height: 270,
                 ),
@@ -59,20 +57,20 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            child: Text(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 80, vertical: 20
+                )
+            ),
+            onPressed: ()=> print("clicked"),
+            child: const Text(
               "Login",
               style: TextStyle(
                   color: Colors.blueGrey,
                   fontWeight: FontWeight.bold
               ),
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(
-                    horizontal: 80, vertical: 20
-                )
-            ),
-            onPressed: ()=> print("clicked"),
           )
 
 
