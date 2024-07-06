@@ -61,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
       {showDialog(
           context: context,
           builder: (c){
-            return ErrorDialouge(
+            return const ErrorDialouge(
              message:  "Please Select an Image",
             );
           }
@@ -82,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
               showDialog(
                   context: context,
                   builder: (c){
-                    return ErrorDialouge(
+                    return const ErrorDialouge(
                       message:  "Please provide the required info.",
                     );
                   }
@@ -94,7 +94,7 @@ class _SignupPageState extends State<SignupPage> {
           showDialog(context: context,
               builder: (c)
           {
-            return ErrorDialouge(
+            return const ErrorDialouge(
               message: "Passwords do not match",
             );
           }
