@@ -32,7 +32,7 @@ class _SignupPageState extends State<SignupPage> {
   List<Placemark>? placeMarks;
 
   Future<void> _getImage() async{
-    imageXFile== await _picker.pickImage(source: ImageSource.gallery);
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       imageXFile;
     });

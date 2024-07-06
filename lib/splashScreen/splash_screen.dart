@@ -40,12 +40,12 @@ class _SplashScreenState extends State<SplashScreen> {
               const Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
-                    "Find Restaurants Near You",
+                    "For the love of food",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black45,
-                      fontSize: 40,
-                      fontFamily: "Sinatra",
+                      color: Colors.black,
+                      fontSize: 36,
+                      fontFamily: "Lobster",
                       letterSpacing: 3,
                     ),
                   ),
