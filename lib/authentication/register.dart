@@ -1,10 +1,15 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 import 'package:myapp/widgets/error_dialouge.dart';
+import 'package:myapp/widgets/loading.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storage;
 
 
 
@@ -32,6 +37,9 @@ class _SignupPageState extends State<SignupPage> {
   Position? position;
   List<Placemark>? placeMarks;
 
+
+  String userImageUrl = "";
+
   Future<void> _getImage() async{
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -55,6 +63,50 @@ class _SignupPageState extends State<SignupPage> {
     locationController.text = completeAddress;
   }
 
+ /* Future<void> uploadFile() async {
+    if (imageXFile == null) {
+      print('No file selected');
+      return;
+    }
+    try {
+      final path = 'files/${imageXFile!.name}';
+      final file = File(imageXFile!.path);
+      final ref = fireStorage.FirebaseStorage.instance.ref().child(path);
+      fireStorage.UploadTask uploadTask = ref.putFile(file);
+      final fireStorage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+
+      final userImageUrl = await taskSnapshot.ref.getDownloadURL();
+
+      print('DL URL: $userImageUrl');
+    } catch (e) {
+      print('Error occurred while uploading file: $e');
+    }
+  }*/
+
+
+
+
+  Future<void> uploadFileToStorage(File file)  async {
+    try {
+
+      final storage = FirebaseStorage.instance;
+      final Reference storageRef = storage.ref().child('seller/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final UploadTask uploadTask = storageRef.putFile(file);
+
+      uploadTask.whenComplete(() {
+        print('File uploaded successfully');
+      });
+    } catch (e) {
+      print('Error uploading file: $e');
+    }
+  }
+
+// Example usage:
+// File imageFile = File('/path/to/your/image.jpg');
+// uploadFileToStorage(imageFile);
+
+
+
   Future<void> formValidation() async
   {
     if(imageXFile==null)
@@ -76,6 +128,35 @@ class _SignupPageState extends State<SignupPage> {
               //checked if form is filled correctly
             {
               //start uploading finally
+              showDialog(
+                context: context,
+                builder: (c)
+                  {
+                    return const loading(
+                      message: ("Registering account"),
+                    );
+                  }
+              );
+
+              File image2u = File(imageXFile!.path);
+              Firebase.initializeApp();
+              uploadFileToStorage(image2u);
+
+
+              /*String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+              storage.Reference reference = storage.FirebaseStorage.instance.ref().child("susers").child(fileName);
+              storage.UploadTask uploadTask = reference.putFile(File(imageXFile!.path));
+              storage.TaskSnapshot taskSnapshots =  uploadTask.whenComplete(() {});
+              await taskSnapshots.ref.getDownloadURL().then((url) {
+               userImageUrl = url;*/
+
+                //uploadFile();
+                // upload to firebase
+             // });
+
+
+
+
             }
             else
             {
@@ -217,6 +298,7 @@ class _SignupPageState extends State<SignupPage> {
              onPressed: ()
              {
                  formValidation();
+                 //uploadFile();
              },
                child: const Text(
                  "Sign Up",

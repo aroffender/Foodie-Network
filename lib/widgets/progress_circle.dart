@@ -11,5 +11,5 @@ circularProgress()
         Colors.blueAccent
       ),
     ),
-  )
+  );
 }
