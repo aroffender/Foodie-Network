@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
+import 'package:myapp/widgets/error_dialouge.dart';
 
 
 
@@ -52,6 +53,54 @@ class _SignupPageState extends State<SignupPage> {
     String completeAddress = "${pMark.subThoroughfare}  ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality},  ${pMark.subAdministrativeArea},  ${pMark.administrativeArea}  ${pMark.postalCode}, ${pMark.country} ";
 
     locationController.text = completeAddress;
+  }
+
+  Future<void> formValidation() async
+  {
+    if(imageXFile==null)
+      {showDialog(
+          context: context,
+          builder: (c){
+            return ErrorDialouge(
+             message:  "Please Select an Image",
+            );
+          }
+      );
+      }
+    else
+      {
+        if(passwordController.text ==confirmPasswordController.text)
+          {
+            //Upload image to database
+            if(confirmPasswordController.text.isNotEmpty && emailController.text.isNotEmpty && nameController.text.isNotEmpty && phoneController.text.isNotEmpty  && locationController.text.isNotEmpty)
+              //checked if form is filled correctly
+            {
+              //start uploading finally
+            }
+            else
+            {
+              showDialog(
+                  context: context,
+                  builder: (c){
+                    return ErrorDialouge(
+                      message:  "Please provide the required info.",
+                    );
+                  }
+              );
+            }
+          }
+        else
+        {
+          showDialog(context: context,
+              builder: (c)
+          {
+            return ErrorDialouge(
+              message: "Passwords do not match",
+            );
+          }
+          );
+        }
+      }
   }
 
   @override
@@ -123,7 +172,7 @@ class _SignupPageState extends State<SignupPage> {
                    controller: locationController,
                    hintText: "Address",
                    isObscure: false,
-                   enabled: false,
+                   enabled: true,
 
                  ),
 
@@ -165,7 +214,10 @@ class _SignupPageState extends State<SignupPage> {
                     horizontal: 50, vertical: 20
                   )
                 ),
-             onPressed: ()=> print("clicked"),
+             onPressed: ()
+             {
+                 formValidation();
+             },
                child: const Text(
                  "Sign Up",
                  style: TextStyle(
