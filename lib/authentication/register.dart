@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -9,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 import 'package:myapp/widgets/error_dialouge.dart';
 import 'package:myapp/widgets/loading.dart';
-import 'package:firebase_storage/firebase_storage.dart' as storage;
 
 
 
@@ -63,37 +61,18 @@ class _SignupPageState extends State<SignupPage> {
     locationController.text = completeAddress;
   }
 
- /* Future<void> uploadFile() async {
-    if (imageXFile == null) {
-      print('No file selected');
-      return;
-    }
+
+
+
+
+
+  Future<void> uploadFileToStorage(File file, String folderName) async {
     try {
-      final path = 'files/${imageXFile!.name}';
-      final file = File(imageXFile!.path);
-      final ref = fireStorage.FirebaseStorage.instance.ref().child(path);
-      fireStorage.UploadTask uploadTask = ref.putFile(file);
-      final fireStorage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-
-      final userImageUrl = await taskSnapshot.ref.getDownloadURL();
-
-      print('DL URL: $userImageUrl');
-    } catch (e) {
-      print('Error occurred while uploading file: $e');
-    }
-  }*/
-
-
-
-
-  Future<void> uploadFileToStorage(File file)  async {
-    try {
-
       final storage = FirebaseStorage.instance;
-      final Reference storageRef = storage.ref().child('seller/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final Reference storageRef = storage.ref().child('$folderName/${DateTime.now().millisecondsSinceEpoch}.jpg');
       final UploadTask uploadTask = storageRef.putFile(file);
 
-      uploadTask.whenComplete(() {
+      await uploadTask.whenComplete(() {
         print('File uploaded successfully');
       });
     } catch (e) {
@@ -101,9 +80,6 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-// Example usage:
-// File imageFile = File('/path/to/your/image.jpg');
-// uploadFileToStorage(imageFile);
 
 
 
@@ -140,7 +116,8 @@ class _SignupPageState extends State<SignupPage> {
 
               File image2u = File(imageXFile!.path);
               Firebase.initializeApp();
-              uploadFileToStorage(image2u);
+              uploadFileToStorage(image2u,'Utest2');
+              return;
 
 
               /*String fileName = DateTime.now().millisecondsSinceEpoch.toString();
