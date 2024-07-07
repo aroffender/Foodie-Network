@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,9 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/mainScreens/homescreen.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 import 'package:myapp/widgets/error_dialouge.dart';
 import 'package:myapp/widgets/loading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -41,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
 
 
   String userImageUrl = "";
-
+  String completeAddress="";
   Future<void> _getImage() async{
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -65,6 +66,34 @@ class _SignupPageState extends State<SignupPage> {
     locationController.text = completeAddress;
   }
 
+  
+  void authenticateSeller() async
+  {
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(), 
+        password: passwordController.text.trim(),
+    ).then((auth){
+      currentUser =auth.user;
+
+    });
+
+    if (currentUser != null)
+      {
+        uploadUserData(currentUser!).then((value){
+          Navigator.pop(context);
+          //redirect user to homepage
+          Route newRoute =MaterialPageRoute(builder: (c)=> const HomeScreen()); ////sending to next page
+          Navigator.pushReplacement(context, newRoute);
+
+
+        });
+      }
+  }
+  
+  
+  
 ////seller = = suser
 
   Future uploadUserData(User currentUser) async
@@ -73,9 +102,20 @@ class _SignupPageState extends State<SignupPage> {
       'suserUID':currentUser.uid,
       'suserEmail': currentUser.email,
       'suserName':nameController.text.trim(),
-      //'suserAvatar': ,
+      'suserAvatar': imageXFile!.path,
+      'phone':phoneController.text.trim(),
+      'address': completeAddress,
+      "status": "approved",
+      "earnings": 0.0,
+      "lat": position!.latitude,
+      "lng": position!.longitude,
 
     });
+    // save data locally 
+    SharedPreferences? sharedPreferences;
+    await sharedPreferences!.setString("uid", currentUser.uid);
+    await sharedPreferences.setString("name", nameController.text.trim());
+    await sharedPreferences.setString("photoUrl", userImageUrl);
   }
 
 
@@ -86,7 +126,9 @@ class _SignupPageState extends State<SignupPage> {
       final UploadTask uploadTask = storageRef.putFile(file);
 
 
+
       await uploadTask.whenComplete(() {
+        authenticateSeller();
         print('File uploaded successfully');
       });
     } catch (e) {
