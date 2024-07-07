@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'com.google.gms:google-services:4.3.3' // Added
+        classpath 'com.google.gms:google-services:4.3.0' // Added
     }
 }
 

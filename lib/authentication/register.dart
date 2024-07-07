@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+//import 'dart:js_interop';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,8 +42,11 @@ class _SignupPageState extends State<SignupPage> {
   List<Placemark>? placeMarks;
 
 
+
   String userImageUrl = "";
   String completeAddress="";
+
+
   Future<void> _getImage() async{
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -66,17 +70,105 @@ class _SignupPageState extends State<SignupPage> {
     locationController.text = completeAddress;
   }
 
-  
+/*
+  FirebaseAuth mAuth = FirebaseAuth.getInstance();
+  FirebaseUser user = mAuth.getCurrentUser();
+  if (user != null) {
+  // do your stuff
+  } else {
+  signInAnonymously();
+  }*/
+
+   User? currentUser;
+
+  Future<User?> authenticateUserWithEmailAndPassword() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      currentUser = userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+  /* Future<User?> authenticateUserWithEmailAndPassword() async {
+    User? currentUser;
+    try {
+
+      final auth = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      currentUser = auth.user;
+
+
+    } catch (e) {
+      print('Authentication failed: $e');
+      return null;
+    }
+    if (currentUser != null)
+    {
+      uploadUserData(currentUser).then((value){
+        Navigator.pop(context);
+        //redirect user to homepage
+        Route newRoute =MaterialPageRoute(builder: (c)=> const HomeScreen()); ////sending to next page
+        Navigator.pushReplacement(context, newRoute);
+
+
+
+      });
+    }
+    return currentUser;
+  }*/  // almost works but no user set
+
+// Example usage:
+/*  void main() async {
+    final email = 'user@example.com';
+    final password = 'your_password_here';
+
+    final user = await authenticateUserWithEmailAndPassword(email, password);
+    if (user != null) {
+      print('User authenticated: ${user.email}');
+    } else {
+      print('Authentication failed.');
+    }
+  }*/
+
+/*
   void authenticateSeller() async
   {
     User? currentUser;
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth.createUserWithEmailAndPassword(
-        email: emailController.text.trim(), 
+        email: emailController.text.trim(),
         password: passwordController.text.trim(),
     ).then((auth){
       currentUser =auth.user;
 
+    }).catchError((error){
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (c)
+          {
+            //String err = error.message.toString();
+            return const ErrorDialouge(
+              message: ,
+              //message: error.message.toString(),
+              ////DEFINE ERROR MESSAGE HERE, CANT PUT PREV ERROR,
+            );
+          }
+      );
     });
 
     if (currentUser != null)
@@ -91,9 +183,34 @@ class _SignupPageState extends State<SignupPage> {
         });
       }
   }
-  
-  
-  
+  */
+/*  Future<void> authenticateUserAndUploadInfo({
+    required String email,
+    required String password,
+    required String name,
+    required String phone,
+    required String location,
+    required File imageFile,
+  }) async {
+    try {
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      final UserCredential authResult = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final User? currentUser = authResult.user;
+      if (currentUser != null) {
+
+
+
+      }
+    } catch (e) {
+      // Handle any errors during registration
+      print('Error during registration: $e');
+    }
+  }
+  */
 ////seller = = suser
 
   Future uploadUserData(User currentUser) async
@@ -112,9 +229,10 @@ class _SignupPageState extends State<SignupPage> {
 
     });
     // save data locally 
-    SharedPreferences? sharedPreferences;
-    await sharedPreferences!.setString("uid", currentUser.uid);
+    SharedPreferences? sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("uid", currentUser.uid);
     await sharedPreferences.setString("name", nameController.text.trim());
+    await sharedPreferences.setString("email", currentUser.email.toString());
     await sharedPreferences.setString("photoUrl", userImageUrl);
   }
 
@@ -124,11 +242,9 @@ class _SignupPageState extends State<SignupPage> {
       final storage = FirebaseStorage.instance;
       final Reference storageRef = storage.ref().child('$folderName/${DateTime.now().millisecondsSinceEpoch}.jpg');
       final UploadTask uploadTask = storageRef.putFile(file);
-
-
-
+      
       await uploadTask.whenComplete(() {
-        authenticateSeller();
+        //authenticateSeller();
         print('File uploaded successfully');
       });
     } catch (e) {
@@ -160,6 +276,7 @@ class _SignupPageState extends State<SignupPage> {
               //checked if form is filled correctly
             {
               //start uploading finally
+
               showDialog(
                 context: context,
                 builder: (c)
@@ -172,23 +289,13 @@ class _SignupPageState extends State<SignupPage> {
 
               File image2u = File(imageXFile!.path);
               Firebase.initializeApp();
-              uploadFileToStorage(image2u,'Utest2');
+              uploadFileToStorage(image2u,'userphotos1');
+              //uploadUserData(auth.user);
+              authenticateUserWithEmailAndPassword();
+
+              uploadUserData(currentUser!);
+              //authenticateSeller();
               return;
-
-
-              /*String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-              storage.Reference reference = storage.FirebaseStorage.instance.ref().child("susers").child(fileName);
-              storage.UploadTask uploadTask = reference.putFile(File(imageXFile!.path));
-              storage.TaskSnapshot taskSnapshots =  uploadTask.whenComplete(() {});
-              await taskSnapshots.ref.getDownloadURL().then((url) {
-               userImageUrl = url;*/
-
-                //uploadFile();
-                // upload to firebase
-             // });
-
-
-
 
             }
             else
