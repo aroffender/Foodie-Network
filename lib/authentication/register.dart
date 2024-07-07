@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:async';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +65,18 @@ class _SignupPageState extends State<SignupPage> {
     locationController.text = completeAddress;
   }
 
+////seller = = suser
 
+  Future uploadUserData(User currentUser) async
+  {
+    FirebaseFirestore.instance.collection("suser").doc(currentUser.uid).set({
+      'suserUID':currentUser.uid,
+      'suserEmail': currentUser.email,
+      'suserName':nameController.text.trim(),
+      //'suserAvatar': ,
 
-
+    });
+  }
 
 
   Future<void> uploadFileToStorage(File file, String folderName) async {
@@ -71,6 +84,7 @@ class _SignupPageState extends State<SignupPage> {
       final storage = FirebaseStorage.instance;
       final Reference storageRef = storage.ref().child('$folderName/${DateTime.now().millisecondsSinceEpoch}.jpg');
       final UploadTask uploadTask = storageRef.putFile(file);
+
 
       await uploadTask.whenComplete(() {
         print('File uploaded successfully');
