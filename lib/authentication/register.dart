@@ -15,6 +15,8 @@ import 'package:myapp/widgets/error_dialouge.dart';
 import 'package:myapp/widgets/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../global/global.dart';
+
 
 
 class SignupPage extends StatefulWidget {
@@ -83,8 +85,7 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<User?> authenticateUserWithEmailAndPassword() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
+      UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -215,6 +216,7 @@ class _SignupPageState extends State<SignupPage> {
 
   Future uploadUserData(User currentUser) async
   {
+    final FirebaseAuth firebaseAuth =FirebaseAuth.instance;
     FirebaseFirestore.instance.collection("suser").doc(currentUser.uid).set({
       'suserUID':currentUser.uid,
       'suserEmail': currentUser.email,
@@ -229,11 +231,11 @@ class _SignupPageState extends State<SignupPage> {
 
     });
     // save data locally 
-    SharedPreferences? sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString("uid", currentUser.uid);
-    await sharedPreferences.setString("name", nameController.text.trim());
-    await sharedPreferences.setString("email", currentUser.email.toString());
-    await sharedPreferences.setString("photoUrl", userImageUrl);
+    sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences!.setString("uid", currentUser.uid);
+    await sharedPreferences!.setString("name", nameController.text.trim());
+    await sharedPreferences!.setString("email", currentUser.email.toString());
+    await sharedPreferences!.setString("photoUrl", userImageUrl);
   }
 
 
@@ -412,6 +414,7 @@ class _SignupPageState extends State<SignupPage> {
                      ),
                      onPressed: ()
                      {
+
                        getCurrentLocation();
                      },
                      style: ElevatedButton.styleFrom(
