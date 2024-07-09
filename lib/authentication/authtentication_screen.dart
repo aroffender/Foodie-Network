@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/authentication/login.dart';
 import 'package:myapp/authentication/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
