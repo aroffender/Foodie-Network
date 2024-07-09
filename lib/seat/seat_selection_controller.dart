@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 import 'package:myapp/widgets/menu_item_row.dart';
-import 'package:myapp/widgets/popular_rstaurant_row.dart';
+import 'package:myapp/widgets/popular_restaurant_row.dart';
 import 'package:myapp/widgets/most_popular_restaurant.dart';
 import 'package:myapp/widgets/recent_item_row.dart';
 import 'package:myapp/widgets/RoundTextField.dart';
@@ -11,15 +11,29 @@ import 'package:myapp/widgets/RoundTextField.dart';
 import '../widgets/category_cell.dart';
 import '../widgets/view_all_title_row.dart';
 
-
-
-
 // Define your colors here
 class TColor {
   static const Color primaryText = Color(0xFF333333);
   static const Color secondaryText = Color(0xFF777777);
   static const Color primary = Color(0xFFFFD700);
   static const Color white = Color(0xFFFFFFFF);
+}
+
+// Reservation Model
+class Reservation {
+  final String name;
+  final DateTime date;
+  final int numberOfSeats;
+
+  Reservation(this.name, this.date, this.numberOfSeats);
+}
+
+// Seat Model
+class Seat {
+  final int id;
+  bool isBooked;
+
+  Seat(this.id, this.isBooked);
 }
 
 class HomeView extends StatefulWidget {
@@ -31,6 +45,11 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   TextEditingController txtSearch = TextEditingController();
+  TextEditingController txtName = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+  int selectedSeats = 1;
+  List<Reservation> reservations = [];
+  List<Seat> seats = List.generate(20, (index) => Seat(index + 1, false));
 
   List catArr = [
     {"image": "assets/img/cat_offer.png", "name": "Offers"},
@@ -45,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
     {
@@ -53,7 +72,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
     {
@@ -61,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Bakes by Tella",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
   ];
@@ -72,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
     {
@@ -80,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
   ];
@@ -91,7 +110,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Mulberry Pizza by Josh",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
     {
@@ -99,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
       "name": "Barita",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
     {
@@ -107,10 +126,49 @@ class _HomeViewState extends State<HomeView> {
       "name": "Pizza Rush Hour",
       "rate": "4.9",
       "rating": "124",
-      "type": "Cafa",
+      "type": "Cafe",
       "food_type": "Western Food"
     },
   ];
+
+  void bookSeats() {
+    if (txtName.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please enter your name')),
+      );
+      return;
+    }
+    if (seats.where((seat) => !seat.isBooked).length < selectedSeats) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Not enough available seats')),
+      );
+      return;
+    }
+
+    setState(() {
+      seats.where((seat) => !seat.isBooked).take(selectedSeats).forEach((seat) {
+        seat.isBooked = true;
+      });
+      reservations.add(Reservation(txtName.text, selectedDate, selectedSeats));
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Seats booked successfully')),
+    );
+  }
+
+  void cancelReservation(int index) {
+    setState(() {
+      Reservation reservation = reservations.removeAt(index);
+      seats.where((seat) => seat.isBooked).take(reservation.numberOfSeats).forEach((seat) {
+        seat.isBooked = false;
+      });
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Reservation canceled')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +216,7 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Text(
                       "Delivering to",
-                      style:
-                      TextStyle(color: TColor.secondaryText, fontSize: 11),
+                      style: TextStyle(color: TColor.secondaryText, fontSize: 11),
                     ),
                     const SizedBox(
                       height: 6,
@@ -231,7 +288,7 @@ class _HomeViewState extends State<HomeView> {
                   onView: () {},
                 ),
               ),
-              /*ListView.builder(
+              ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -250,7 +307,7 @@ class _HomeViewState extends State<HomeView> {
                   title: "Most Popular",
                   onView: () {},
                 ),
-              ),*/
+              ),
               SizedBox(
                 height: 200,
                 child: ListView.builder(
@@ -285,14 +342,155 @@ class _HomeViewState extends State<HomeView> {
                     onTap: () {},
                   );
                 }),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Make a Reservation",
+                      style: TextStyle(
+                          color: TColor.primaryText,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      hintText: "Enter your name",
+                      controller: txtName,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Select Date",
+                      style: TextStyle(
+                          color: TColor.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null && pickedDate != selectedDate) {
+                          setState(() {
+                            selectedDate = pickedDate;
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: TColor.secondaryText),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${selectedDate.toLocal()}".split(' ')[0],
+                            style: TextStyle(color: TColor.primaryText, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Select Number of Seats",
+                      style: TextStyle(
+                          color: TColor.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 10),
+                    DropdownButton<int>(
+                      value: selectedSeats,
+                      onChanged: (int? newValue) {
+                        setState(() {
+                          selectedSeats = newValue!;
+                        });
+                      },
+                      items: List.generate(10, (index) => index + 1)
+                          .map<DropdownMenuItem<int>>((int value) {
+                        return DropdownMenuItem<int>(
+                          value: value,
+                          child: Text(value.toString()),
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: bookSeats,
+                      child: Text("Book Seats"),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Reservations",
+                      style: TextStyle(
+                          color: TColor.primaryText,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 10),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: reservations.length,
+                      itemBuilder: (context, index) {
+                        Reservation reservation = reservations[index];
+                        return ListTile(
+                          title: Text(
+                              "${reservation.name} - ${reservation.date.toLocal()} - ${reservation.numberOfSeats} seats"),
+                          trailing: IconButton(
+                            icon: Icon(Icons.cancel, color: Colors.red),
+                            onPressed: () => cancelReservation(index),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Seat Availability",
+                      style: TextStyle(
+                          color: TColor.primaryText,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 10),
+                    GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: seats.length,
+                      itemBuilder: (context, index) {
+                        Seat seat = seats[index];
+                        return Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: seat.isBooked ? Colors.red : Colors.green,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            "Seat ${seat.id}",
+                            style: TextStyle(color: TColor.white),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-class RoundTextfield {
 }

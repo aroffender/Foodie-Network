@@ -11,7 +11,7 @@ class AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -49,6 +49,10 @@ class AuthState extends State<Auth> {
                 icon: Icon(Icons.person, color: Colors.white),
                 text: "Register",
               ),
+              Tab(
+                icon: Icon(Icons.lock, color: Colors.white),
+                text: "Home",
+              ),
             ],
           ),
         ),
@@ -67,6 +71,7 @@ class AuthState extends State<Auth> {
             children: [
               Center(child: Text('Login Screen')),
               Center(child: Text('Register Screen')),
+              Center(child: Text('Home'))
             ],
           ),
         ),
