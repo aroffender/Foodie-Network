@@ -11,7 +11,7 @@ class TColor {
 
 
 class PopularRestaurantRow extends StatelessWidget {
-  final Map<String, dynamic> pObj;
+  final Map<dynamic, dynamic> pObj;
   final VoidCallback onTap;
   const PopularRestaurantRow({super.key, required this.pObj, required this.onTap});
 
