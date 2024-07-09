@@ -3,6 +3,7 @@ import 'package:myapp/authentication/login.dart';
 import 'package:myapp/authentication/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myapp/screens/home.dart';
+import 'package:myapp/seat/seat_selection_controller.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -15,7 +16,7 @@ class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -58,6 +59,10 @@ class _AuthState extends State<Auth> {
                 icon: Icon(Icons.home, color: Colors.white),
                 text: "Home",
               ),
+              Tab(
+                icon: Icon(Icons.lock_clock, color: Colors.white),
+                text: "Booking",
+              ),
             ],
           ),
         ),
@@ -77,6 +82,9 @@ class _AuthState extends State<Auth> {
               LoginPage(),
               SignupPage(),
               HomeView(),
+              bookingpage(),
+
+
 
             ],
           ),

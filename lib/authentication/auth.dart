@@ -53,6 +53,10 @@ class AuthState extends State<Auth> {
                 icon: Icon(Icons.lock, color: Colors.white),
                 text: "Home",
               ),
+              Tab(
+                icon: Icon(Icons.lock, color: Colors.white),
+                text: "Booking",
+              ),
             ],
           ),
         ),
@@ -71,7 +75,8 @@ class AuthState extends State<Auth> {
             children: [
               Center(child: Text('Login Screen')),
               Center(child: Text('Register Screen')),
-              Center(child: Text('Home'))
+              Center(child: Text('Home')),
+              Center(child: Text('Booking'))
             ],
           ),
         ),

@@ -11,9 +11,6 @@ import 'package:myapp/widgets/RoundTextField.dart';
 import '../widgets/category_cell.dart';
 import '../widgets/view_all_title_row.dart';
 
-
-
-
 // Define your colors here
 class TColor {
   static const Color primaryText = Color(0xFF333333);
@@ -33,15 +30,15 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController txtSearch = TextEditingController();
 
   List catArr = [
-    {"image": "assets/img/cat_offer.png", "name": "Offers"},
-    {"image": "assets/img/cat_sri.png", "name": "Sri Lankan"},
-    {"image": "assets/img/cat_3.png", "name": "Italian"},
-    {"image": "assets/img/cat_4.png", "name": "Indian"},
+    {"image": "assets/images/cat_offer.png", "name": "Offers"},
+    {"image": "assets/images/cat_sri.png", "name": "Sri Lankan"},
+    {"image": "assets/images/cat_3.png", "name": "Italian"},
+    {"image": "assets/images/cat_4.png", "name": "Indian"},
   ];
 
   List popArr = [
     {
-      "image": "assets/img/res_1.png",
+      "image": "assets/images/res_1.png",
       "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
@@ -49,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
       "food_type": "Western Food"
     },
     {
-      "image": "assets/img/res_2.png",
+      "image": "assets/images/res_2.png",
       "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
@@ -57,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
       "food_type": "Western Food"
     },
     {
-      "image": "assets/img/res_3.png",
+      "image": "assets/images/res_3.png",
       "name": "Bakes by Tella",
       "rate": "4.9",
       "rating": "124",
@@ -68,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
 
   List mostPopArr = [
     {
-      "image": "assets/img/m_res_1.png",
+      "image": "assets/images/m_res_1.png",
       "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
@@ -76,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
       "food_type": "Western Food"
     },
     {
-      "image": "assets/img/m_res_2.png",
+      "image": "assets/images/m_res_2.png",
       "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
@@ -87,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
 
   List recentArr = [
     {
-      "image": "assets/img/item_1.png",
+      "image": "assets/images/item_1.png",
       "name": "Mulberry Pizza by Josh",
       "rate": "4.9",
       "rating": "124",
@@ -95,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
       "food_type": "Western Food"
     },
     {
-      "image": "assets/img/item_2.png",
+      "image": "assets/images/item_2.png",
       "name": "Barita",
       "rate": "4.9",
       "rating": "124",
@@ -103,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
       "food_type": "Western Food"
     },
     {
-      "image": "assets/img/item_3.png",
+      "image": "assets/images/item_3.png",
       "name": "Pizza Rush Hour",
       "rate": "4.9",
       "rating": "124",
@@ -131,16 +128,16 @@ class _HomeViewState extends State<HomeView> {
                     Text(
                       "Good morning!",
                       style: TextStyle(
-                          color: TColor.primaryText,
-                          fontSize: 20,
-                          ),
+                        color: TColor.primaryText,
+                        fontSize: 20,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
                         // Handle cart button press
                       },
                       icon: Image.asset(
-                        "assets/img/shopping_cart.png",
+                        "assets/images/shopping_cart.png",
                         width: 25,
                         height: 25,
                       ),
@@ -159,7 +156,7 @@ class _HomeViewState extends State<HomeView> {
                     Text(
                       "Delivering to",
                       style:
-                      TextStyle(color: TColor.secondaryText, fontSize: 11),
+                          TextStyle(color: TColor.secondaryText, fontSize: 11),
                     ),
                     const SizedBox(
                       height: 10,
@@ -170,15 +167,15 @@ class _HomeViewState extends State<HomeView> {
                         Text(
                           "Current Location",
                           style: TextStyle(
-                              color: TColor.secondaryText,
-                              fontSize: 16,
-                              ),
+                            color: TColor.secondaryText,
+                            fontSize: 16,
+                          ),
                         ),
                         const SizedBox(
                           width: 25,
                         ),
                         Image.asset(
-                          "assets/img/dropdown.png",
+                          "assets/images/dropdown.png",
                           width: 12,
                           height: 12,
                         )
@@ -199,7 +196,7 @@ class _HomeViewState extends State<HomeView> {
                     alignment: Alignment.center,
                     width: 30,
                     child: Image.asset(
-                      "assets/img/search.png",
+                      "assets/images/search.png",
                       width: 20,
                       height: 20,
                     ),
@@ -231,7 +228,7 @@ class _HomeViewState extends State<HomeView> {
                   onView: () {},
                 ),
               ),
-              ListView.builder(
+              /*ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -250,7 +247,7 @@ class _HomeViewState extends State<HomeView> {
                   title: "Most Popular",
                   onView: () {},
                 ),
-              ),
+              ),*/
               SizedBox(
                 height: 200,
                 child: ListView.builder(
@@ -294,5 +291,4 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-class RoundTextfield {
-}
+class RoundTextfield {}
