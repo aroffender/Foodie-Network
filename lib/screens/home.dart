@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               const SizedBox(
-                height: 46,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -133,7 +133,7 @@ class _HomeViewState extends State<HomeView> {
                       style: TextStyle(
                           color: TColor.primaryText,
                           fontSize: 20,
-                          fontWeight: FontWeight.w800),
+                          ),
                     ),
                     IconButton(
                       onPressed: () {
@@ -149,7 +149,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -162,7 +162,7 @@ class _HomeViewState extends State<HomeView> {
                       TextStyle(color: TColor.secondaryText, fontSize: 11),
                     ),
                     const SizedBox(
-                      height: 6,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -172,7 +172,7 @@ class _HomeViewState extends State<HomeView> {
                           style: TextStyle(
                               color: TColor.secondaryText,
                               fontSize: 16,
-                              fontWeight: FontWeight.w700),
+                              ),
                         ),
                         const SizedBox(
                           width: 25,
@@ -188,7 +188,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -231,16 +231,16 @@ class _HomeViewState extends State<HomeView> {
                   onView: () {},
                 ),
               ),
-              /*ListView.builder(
+              ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemCount: popArr.length,
                 itemBuilder: ((context, index) {
-                  var pObj = popArr[index] as Map? ?? {};
+                  var probj = popArr[index] as Map? ?? {};
                   return PopularRestaurantRow(
-                    pObj: pObj,
                     onTap: () {},
+                    pObj: probj,
                   );
                 }),
               ),
@@ -250,7 +250,7 @@ class _HomeViewState extends State<HomeView> {
                   title: "Most Popular",
                   onView: () {},
                 ),
-              ),*/
+              ),
               SizedBox(
                 height: 200,
                 child: ListView.builder(
