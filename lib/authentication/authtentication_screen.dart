@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/authentication/login.dart';
 import 'package:myapp/authentication/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myapp/screens/home.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -48,9 +49,14 @@ class _AuthState extends State<Auth> {
                 icon: Icon(Icons.lock, color: Colors.white),
                 text: "Login",
               ),
+
               Tab(
                 icon: Icon(Icons.person, color: Colors.white),
                 text: "Register",
+              ),
+              Tab(
+                icon: Icon(Icons.home, color: Colors.white),
+                text: "Home",
               ),
             ],
           ),
@@ -70,6 +76,8 @@ class _AuthState extends State<Auth> {
             children: [
               LoginPage(),
               SignupPage(),
+              HomeView(),
+
             ],
           ),
         ),

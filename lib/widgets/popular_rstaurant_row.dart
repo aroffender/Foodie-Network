@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-
+File image2u = File("images/delivered.jpg");
 class TColor {
   static const Color primaryText = Color(0xFF333333);
   static const Color secondaryText = Color(0xFF777777);
@@ -53,9 +55,11 @@ class PopularRestaurantRow extends StatelessWidget {
                     children: [
                       Image.asset(
                          //place- "image",
+                        image2u as String,
                         width: 10,
                         height: 10,
                         fit: BoxFit.cover,
+
                       ),
                       const SizedBox(
                         width: 4,

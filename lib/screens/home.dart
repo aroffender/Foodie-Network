@@ -1,4 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:myapp/widgets/custom_text_field.dart';
+import 'package:myapp/widgets/menu_item_row.dart';
+import 'package:myapp/widgets/popular_rstaurant_row.dart';
+import 'package:myapp/widgets/most_popular_restaurant.dart';
+import 'package:myapp/widgets/recent_item_row.dart';
+import 'package:myapp/widgets/RoundTextField.dart';
+
+import '../widgets/category_cell.dart';
+import '../widgets/view_all_title_row.dart';
+
+
+
 
 // Define your colors here
 class TColor {
@@ -178,7 +192,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: RoundTextfield(
+                child: CustomTextField(
                   hintText: "Search Food",
                   controller: txtSearch,
                   left: Container(
@@ -278,4 +292,7 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+}
+
+class RoundTextfield {
 }

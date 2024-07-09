@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+
+File image2u = File("images/delivered.jpg");
 
 class TColor {
   static const Color primaryText = Color(0xFF333333);
@@ -11,6 +14,8 @@ class MenuItemRow extends StatelessWidget {
   final Map mObj;
   final VoidCallback onTap;
   const MenuItemRow({super.key, required this.mObj, required this.onTap});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +64,15 @@ class MenuItemRow extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+
+
                           Image.asset(
                             // place- "Image",
+                            image2u as String,
                             width: 10,
                             height: 10,
                             fit: BoxFit.cover,
+
                           ),
                           const SizedBox(
                             width: 4,
