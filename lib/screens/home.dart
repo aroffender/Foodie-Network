@@ -231,7 +231,7 @@ class _HomeViewState extends State<HomeView> {
                   onView: () {},
                 ),
               ),
-              ListView.builder(
+              /*ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -250,7 +250,7 @@ class _HomeViewState extends State<HomeView> {
                   title: "Most Popular",
                   onView: () {},
                 ),
-              ),
+              ),*/
               SizedBox(
                 height: 200,
                 child: ListView.builder(
