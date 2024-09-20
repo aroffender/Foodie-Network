@@ -3,7 +3,11 @@ import 'package:myapp/authentication/login.dart';
 import 'package:myapp/authentication/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myapp/screens/home.dart';
+//import 'package:myapp/mainScreens/ratings.dart';
 import 'package:myapp/seat/seat_selection_controller.dart';
+import 'package:myapp/screens/review.dart';
+
+
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -81,9 +85,9 @@ class _AuthState extends State<Auth> {
             children: [
               LoginPage(),
               SignupPage(),
-              HomeView(),
+             // Home,
               bookingpage(),
-
+              reviewp(restaurantID: '12345')
 
 
             ],
