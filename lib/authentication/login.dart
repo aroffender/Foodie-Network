@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/global/global.dart';
 import 'package:myapp/mainScreens/homescreen.dart';
+import 'package:myapp/mainScreens/hs2.dart';
 import 'package:myapp/widgets/error_dialouge.dart';
 import 'package:myapp/widgets/loading.dart';
 
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
     if (currentUser!= null)
     {
         readsavelocal(currentUser!).then((value) {
-          Navigator.push(context, MaterialPageRoute(builder: (c)=> HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (c)=> hs2()));
         });
     }
   }
@@ -133,6 +134,10 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
+
+
+
+
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -147,6 +152,23 @@ class _LoginPageState extends State<LoginPage> {
             },
             child: const Text(
               "Login",
+              style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ),ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 80, vertical: 20
+                )
+            ),
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (c)=> const hs2()));
+            },
+            child: const Text(
+              "Skip",
               style: TextStyle(
                   color: Colors.blueGrey,
                   fontWeight: FontWeight.bold

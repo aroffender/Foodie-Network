@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/authentication/login.dart';
-import 'package:myapp/authentication/register.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/screens/home.dart';
-//import 'package:myapp/mainScreens/ratings.dart';
-import 'package:myapp/seat/seat_selection_controller.dart';
-import 'package:myapp/screens/review.dart';
 
 
 
-class Auth extends StatefulWidget {
-  const Auth({super.key});
+class hs2 extends StatefulWidget {
+  const hs2({super.key});
 
   @override
-  _AuthState createState() => _AuthState();
+  hs2State createState() => hs2State();
 }
 
-class _AuthState extends State<Auth> {
+class hs2State extends State<hs2> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -28,7 +21,7 @@ class _AuthState extends State<Auth> {
               gradient: LinearGradient(
                 colors: [
                   Colors.cyan,
-                  Colors.blueGrey,
+                  Colors.amber,
                 ],
                 begin: FractionalOffset(0.0, 0.0),
                 end: FractionalOffset(1.0, 0.0),
@@ -38,9 +31,9 @@ class _AuthState extends State<Auth> {
             ),
           ),
           title: const Text(
-            'Foodie Network',
+            'Home',
             style: TextStyle(
-              fontSize: 36,
+              fontSize: 60,
               color: Colors.white,
               fontFamily: "Lobster",
             ),
@@ -50,21 +43,13 @@ class _AuthState extends State<Auth> {
             indicatorColor: Colors.white10,
             indicatorWeight: 6,
             tabs: [
-              Tab(
-                icon: Icon(Icons.lock, color: Colors.white),
-                text: "Login",
-              ),
 
               Tab(
-                icon: Icon(Icons.person, color: Colors.white),
-                text: "Register",
-              ),
-              Tab(
-                icon: Icon(Icons.home, color: Colors.white),
+                icon: Icon(Icons.lock, color: Colors.white),
                 text: "Home",
               ),
               Tab(
-                icon: Icon(Icons.lock_clock, color: Colors.white),
+                icon: Icon(Icons.lock, color: Colors.white),
                 text: "Booking",
               ),
             ],
@@ -73,23 +58,18 @@ class _AuthState extends State<Auth> {
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
               colors: [
+                Colors.amber,
                 Colors.cyan,
-                Colors.white,
               ],
             ),
           ),
           child: const TabBarView(
             children: [
-              LoginPage(),
-              SignupPage(),
-             hview(),
-              //bookingpage(),
-              reviewp(restaurantID: '12345')
-
-
+              Center(child: Text('Home')),
+              Center(child: Text('Booking'))
             ],
           ),
         ),
@@ -98,11 +78,10 @@ class _AuthState extends State<Auth> {
   }
 }
 
-
-
-
 void main() {
   runApp(const MaterialApp(
-    home: Auth(),
+    home: hs2(),
   ));
 }
+
+

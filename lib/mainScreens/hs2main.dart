@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/authentication/login.dart';
 import 'package:myapp/authentication/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myapp/mainScreens/hs2.dart';
 import 'package:myapp/screens/home.dart';
 //import 'package:myapp/mainScreens/ratings.dart';
 import 'package:myapp/seat/seat_selection_controller.dart';
@@ -9,18 +10,18 @@ import 'package:myapp/screens/review.dart';
 
 
 
-class Auth extends StatefulWidget {
-  const Auth({super.key});
+class hs2 extends StatefulWidget {
+  const hs2({super.key});
 
   @override
-  _AuthState createState() => _AuthState();
+  _hs2State createState() => _hs2State();
 }
 
-class _AuthState extends State<Auth> {
+class _hs2State extends State<hs2> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -50,15 +51,7 @@ class _AuthState extends State<Auth> {
             indicatorColor: Colors.white10,
             indicatorWeight: 6,
             tabs: [
-              Tab(
-                icon: Icon(Icons.lock, color: Colors.white),
-                text: "Login",
-              ),
 
-              Tab(
-                icon: Icon(Icons.person, color: Colors.white),
-                text: "Register",
-              ),
               Tab(
                 icon: Icon(Icons.home, color: Colors.white),
                 text: "Home",
@@ -83,9 +76,7 @@ class _AuthState extends State<Auth> {
           ),
           child: const TabBarView(
             children: [
-              LoginPage(),
-              SignupPage(),
-             hview(),
+              hview(),
               //bookingpage(),
               reviewp(restaurantID: '12345')
 
@@ -103,6 +94,6 @@ class _AuthState extends State<Auth> {
 
 void main() {
   runApp(const MaterialApp(
-    home: Auth(),
+    home: hs2(),
   ));
 }

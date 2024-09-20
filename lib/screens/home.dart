@@ -19,14 +19,14 @@ class TColor {
   static const Color white = Color(0xFFFFFFFF);
 }
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class hview extends StatefulWidget {
+  const hview({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<hview> createState() => _hviewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _hviewState extends State<hview> {
   TextEditingController txtSearch = TextEditingController();
 
   List catArr = [
