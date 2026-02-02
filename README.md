@@ -1,6 +1,6 @@
 # Foodie Network
 
-A new Flutter project.
+A new food delivery, restaurant booking, and location-based food discovery app.
 
 ## Getting Started
 
